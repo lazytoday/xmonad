@@ -332,7 +332,7 @@ clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     
     
  -- MANAGEHOOK
- myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
+myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- 'doFloat' forces a window to float.  Useful for dialog boxes and such.
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
@@ -361,7 +361,7 @@ myManageHook = composeAll
      
      
  -- KEYBINDINGS
- myKeys :: [(String, X ())]
+myKeys :: [(String, X ())]
 myKeys =
     -- KB_GROUP Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")       -- Recompiles xmonad

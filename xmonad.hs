@@ -125,20 +125,20 @@ main = do
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
-        , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
+        , logHook            = dynamicLogWithPP $ xmobarPP
               -- XMOBAR SETTINGS
-              { ppOutput = hPutStrLn xmproc 
+              { ppOutput  = hPutStrLn xmproc 
               , ppCurrent = xmobarColor color06 "" . wrap
                             ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
               , ppVisible = xmobarColor color06 "" . clickable
-              , ppHidden = xmobarColor color05 "" . wrap
+              , ppHidden  = xmobarColor color05 "" . wrap
                            ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable
               , ppHiddenNoWindows = xmobarColor color05 ""  . clickable
-              , ppTitle = xmobarColor color16 "" . shorten 60
-              , ppSep =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
-              , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
+              , ppTitle   = xmobarColor color16 "" . shorten 60
+              , ppSep     =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
+              , ppUrgent  = xmobarColor color02 "" . wrap "!" "!"
               , ppExtras  = [windowCount]
-              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+              , ppOrder   = \(ws:l:t:ex) -> [ws,l]++ex++[t]
               }
         } `additionalKeysP` myKeys
 
@@ -350,14 +350,14 @@ myManageHook = composeAll
      , className =? "toolbar"         --> doFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-     , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
-     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
-     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-     , isFullscreen -->  doFullFloat
-     ] <+> namedScratchpadManageHook myScratchPads
+    -- , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
+    -- , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
+    -- , className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
+    -- , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
+    -- , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
+    -- , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+    -- , isFullscreen -->  doFullFloat
+     ] -- <+> namedScratchpadManageHook myScratchPads
      
      
  -- KEYBINDINGS
@@ -387,8 +387,8 @@ myKeys =
     -- KB_GROUP Workspaces
         , ("M-.", nextScreen)  -- Switch focus to next monitor
         , ("M-,", prevScreen)  -- Switch focus to prev monitor
-        , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-        , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+     --   , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
+      --  , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- KB_GROUP Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -440,7 +440,7 @@ myKeys =
         , ("M-C-k", sendMessage $ pullGroup U)
         , ("M-C-j", sendMessage $ pullGroup D)
         , ("M-C-m", withFocused (sendMessage . MergeAll))
-        -- , ("M-C-u", withFocused (sendMessage . UnMerge))
+        , ("M-C-u", withFocused (sendMessage . UnMerge))
         , ("M-C-/", withFocused (sendMessage . UnMergeAll))
         , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
         , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
@@ -449,6 +449,7 @@ myKeys =
     --      where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
     --            nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 -- END_KEYS
+
  
  
  
